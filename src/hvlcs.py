@@ -38,6 +38,24 @@ class HVLCS_Solver:
                     
         return self.dp[m][n]
 
+def reconstruct(self):
+        i = len(self.A)
+        j = len(self.B)
+        subsequence = []
+        
+        while i > 0 and j > 0:
+            if self.A[i-1] == self.B[j-1]:
+                subsequence.append(self.A[i-1])
+                i -= 1
+                j -= 1
+            elif self.dp[i-1][j] > self.dp[i][j-1]:
+                i -= 1
+            else:
+                j -= 1
+                
+        # The sequence is built backwards, so reverse it
+        return "".join(reversed(subsequence))
+
 if __name__ == "__main__":
     if len(sys.argv) < 2:
         print("Usage: python src/hvlcs.py <input_file>")
@@ -45,4 +63,9 @@ if __name__ == "__main__":
         
     solver = HVLCS_Solver()
     solver.parse_input(sys.argv[1])
-    print(f"Loaded strings A (len {len(solver.A)}) and B (len {len(solver.B)})")
+    
+    max_val = solver.solve()
+    optimal_seq = solver.reconstruct()
+    
+    print(max_val)
+    print(optimal_seq)
