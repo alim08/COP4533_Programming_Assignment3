@@ -38,7 +38,7 @@ class HVLCS_Solver:
                     
         return self.dp[m][n]
 
-def reconstruct(self):
+    def reconstruct(self):  # fixed indentation bug
         i = len(self.A)
         j = len(self.B)
         subsequence = []
